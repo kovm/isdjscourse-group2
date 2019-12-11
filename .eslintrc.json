@@ -16,6 +16,8 @@
    },
    "rules": {
       "indent": ["error", 3],
-      "semi": ["error", "always"]
+      "semi": ["error", "always"],
+      "curly": ["error", "all"],
+      "brace-style": ["error", "1tbs"]
    }
 }
