@@ -1,8 +1,16 @@
-function FizzBuzz (century) {
-   for (let i = 0; i <= century; i++) {
-      const num = (i % 3 === "Fizz") + (i % 5 === "Buzz");
-      console.log(num == "");
-   }
-}
-
-FizzBuzz(100);
+function FizzBuzz() {
+    for (let i = 1; i <= 100; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            console.log("FizzBuzz");
+        }
+        else if (i % 3 === 0) {
+            console.log("Fizz");
+        }
+        else if (i % 5 === 0) {
+            console.log("Buzz");
+        }
+        else {
+            console.log(i);
+        }
+    }
+    }
