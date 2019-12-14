@@ -18,6 +18,9 @@ for (var i = 1; i <= 100; i++) {
 
 //*
 function CheckPolyndrom(val) {
+    if (typeof(val) == "string") {
+        val = val.toLowerCase();
+    }
     var boolFlag = false;
     for (var i = 0; i < val.length; i++) {
         if (val[i] != val[val.length - i - 1]) {
@@ -31,11 +34,13 @@ function CheckPolyndrom(val) {
 var masPol = [1,2,3,3,2,1];
 var masNoPol = [1,5,7,2,1];
 var stringPol = "asdfghhgfdsa";
+var stringPolApperCase = "eRtyuIiuyTre";
 var stringNoPol = "qazxswedcvfrtgbnhy";
 
 console.log(CheckPolyndrom(masPol));
 console.log(CheckPolyndrom(masNoPol));
 console.log(CheckPolyndrom(stringPol));
+console.log(CheckPolyndrom(stringPolApperCase));
 console.log(CheckPolyndrom(stringNoPol));
 
 /* First homework
