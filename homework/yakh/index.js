@@ -1,31 +1,38 @@
-let arr = document.getElementsByClassName("elements");
-let mousePosition = 0;
-
-document.getElementById("area").onmousedown = function() {
-    mousePosition++;
-    console.log(mousePosition)
-    if(mousePosition === 1){
-        for(let i=0; i<=arr.length; i++)( function (i) {
-            arr[i].onmouseover = function (){
-                if(mousePosition === 0) {
-                    return;
-                }
-                arr[i].style.background = "red";
-            }
-        })(i);
+function fizzBuzz(data){
+    for(let i = 1; i <= data; i++){
+        if (i % 3 === 0 && i % 5 === 0) {
+            console.log('FizzBuzz');
+            continue;
+        }
+        if(i % 3 === 0){
+            console.log('Fizz');
+            continue;
+        }
+        if (i % 5 === 0){
+            console.log('Buzz');
+            continue;
+        }  
+    console.log(i);
     }
-  }
-
-document.onmouseup = function() {
-	mousePosition = 0;
 }
 
-for(let i=0; i<=arr.length; i++) ( function (i) {
-	arr[i].onclick = function(){
-  	    arr[i].style.background = "red";
-    }
-})(i);
+fizzBuzz(100);
 
-document.getElementById("button").onclick = function() {
-	alert("hi");
- }
+function isPalindrom(data){
+    let revers  = [];
+    arr = String(data).toLowerCase().split('');
+    for(let i = arr.length-1; i >= 0; i--){
+        revers.push(arr[i]);
+    }
+    for(let i = 0; i < arr.length; i++){
+        if(arr[i] !== revers[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+console.log(isPalindrom(123123123));
+console.log(isPalindrom(12122121));
+console.log(isPalindrom('ПоТоП'));
+console.log(isPalindrom('нож'));
