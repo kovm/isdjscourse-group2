@@ -15,6 +15,10 @@ function multiplicity () {
 }
 
 function isPalindrom (someText) {
+   if (typeof someText !== 'number' && typeof someText !== 'string') {
+      console.log('Wrong data');
+      return false;
+   }
    const tempStr = someText.toString().toLowerCase();
    for (let i = 0; i < tempStr.length / 2; i++) {
       if (tempStr[i] !== tempStr[tempStr.length - i - 1]) {
@@ -25,7 +29,15 @@ function isPalindrom (someText) {
 }
 
 multiplicity();
+
 console.log(isPalindrom('Racecar'));
 console.log(isPalindrom('Car'));
+console.log(isPalindrom('Aa'));
+console.log(isPalindrom('ba'));
+console.log(isPalindrom('A'));
+console.log(isPalindrom());
+console.log(isPalindrom(null));
 console.log(isPalindrom(234432));
 console.log(isPalindrom(23456));
+console.log(isPalindrom(22));
+console.log(isPalindrom([2, 3, 4, 3, 2]));
