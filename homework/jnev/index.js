@@ -13,4 +13,7 @@ function FizzBuzz () {
          console.log(i);
       }
    }
+   
 }
+
+FizzBuzz();
