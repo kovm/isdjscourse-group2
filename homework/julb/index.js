@@ -19,7 +19,7 @@ function checkNumber () {
 checkNumber();
 
 function isPalindrom (str) {
-   if( str !== null && str !== '' && str !==undefined ) {
+   if (str !== null && str !== '' && str !== undefined) {
       str = str.toString().toLowerCase().trim();
 
       for (let i = 0; i <= str.length - 1; i++) {
@@ -27,9 +27,9 @@ function isPalindrom (str) {
             return console.log('не палиндромом');
          }
       }
-         return console.log('палиндромом');
-      }
+      return console.log('палиндромом');
    }
+}
 
 isPalindrom('лопата');
 isPalindrom('потоп');
