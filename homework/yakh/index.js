@@ -19,8 +19,12 @@ function fizzBuzz (data) {
 fizzBuzz(100);
 
 function isPalindrom (data) {
+   if (typeof data === 'string' || typeof data === 'number') {
+      var arr = String(data).toLowerCase().split('');
+   } else {
+      return false;
+   }
    const revers = [];
-   const arr = String(data).toLowerCase().split('');
    for (let i = arr.length - 1; i >= 0; i--) {
       revers.push(arr[i]);
    }
@@ -36,3 +40,4 @@ console.log('\nisPalindrom 123123123: ' + isPalindrom(123123123));
 console.log('\nisPalindrom 12122121: ' + isPalindrom(12122121));
 console.log('\nisPalindrom ПоТоП: ' + isPalindrom('ПоТоП'));
 console.log('\nisPalindrom нож: ' + isPalindrom('нож'));
+console.log('\nisPalindrom массив [1, 2, 1]: ' + isPalindrom([1, 2, 1]));
