@@ -19,17 +19,22 @@ function checkNumber () {
 checkNumber();
 
 function isPalindrom (str) {
-   str = str.toString().toLowerCase();
+   if( str !== null && str !== '' && str !==undefined ) {
+      str = str.toString().toLowerCase().trim();
 
-   for (let i = 0; i <= str.length - 1; i++) {
-      if (str[i] !== str[str.length - 1 - i]) {
-         return console.log('не палиндромом');
+      for (let i = 0; i <= str.length - 1; i++) {
+         if ((str[i] !== str[str.length - 1 - i])) {
+            return console.log('не палиндромом');
+         }
+      }
+         return console.log('палиндромом');
       }
    }
-   return console.log('палиндромом');
-}
 
 isPalindrom('лопата');
 isPalindrom('потоп');
 isPalindrom('23455432');
 isPalindrom('12354321');
+isPalindrom(' Aa ');
+isPalindrom();
+isPalindrom(null);
