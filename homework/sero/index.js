@@ -14,15 +14,18 @@ function fizzBuzz () {
 fizzBuzz();
 
 function isPalindrome (str) {
-   str = String(str).toLowerCase();
-
-   let reversed = '';
-
-   for (let i = str.length - 1; i >= 0; i--) {
-      reversed += str[i];
+   if (!str) {
+      return false;
    }
 
-   return str === reversed;
+   const arr = Array.isArray(str) ? str : str.toString().split('');
+   let reversed = '';
+
+   for (let i = arr.length - 1; i >= 0; i--) {
+      reversed += arr[i];
+   }
+
+   return arr.join('') === reversed;
 }
 
 console.log(isPalindrome('civic')); // true
@@ -31,3 +34,7 @@ console.log(isPalindrome('Hannah')); // true
 console.log(isPalindrome('definetely not a palindrome')); // false
 console.log(isPalindrome(12314)); // false
 console.log(isPalindrome(345543)); // true
+console.log(isPalindrome()); // false
+console.log(isPalindrome(null)); // false
+console.log(isPalindrome([1, 2, 1, 2])); // true
+console.log(isPalindrome('Aa')); // false
