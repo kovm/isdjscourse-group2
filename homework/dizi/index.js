@@ -1,16 +1,31 @@
-//Сортировка массива:
-var numbers = [12, 3, 7, 9, 10, 5];
+'use strict';
 
-for (var i = 0; i <= numbers.length - 2; i++) {
-    var minValue = numbers[i];
-
-    for (var j = i + 1; j <= numbers.length - 1; j++) {
-        if (numbers[j] < minValue) {
-            minValue = numbers[j];
-            var swap = numbers[i];
-            numbers[i] = minValue;
-            numbers[j] = swap;
-        }
-    }
+// FizzBuzz
+function getNumbers () {
+   for (let i = 0; i <= 100; i++) {
+      let a = i;
+      if (!(a % 3) && !(a % 5)) {
+         a = 'FizzBuzz';
+      } else if (!(a % 3)) {
+         a = 'Fizz';
+      } else if (!(a % 5)) {
+         a = 'Buzz';
+      }
+      console.log(a);
+   }
 }
-console.log(numbers);
+
+getNumbers();
+
+// Is it palindrome?
+function palindromeCheck (itemToCheck) {
+   const stringToCheck = String(itemToCheck).toLowerCase();
+   for (let i = 0; i < stringToCheck.length; i++) {
+      if (stringToCheck[i] !== stringToCheck[(stringToCheck.length - 1) - i]) {
+         return console.log('It is NOT a palindrome');
+      }
+   }
+   return console.log('It is a palindrome');
+}
+
+palindromeCheck(1221);
