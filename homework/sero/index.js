@@ -18,7 +18,7 @@ function isPalindrome (str) {
       return false;
    }
 
-   const arr = Array.isArray(str) ? str : str.toString().split('');
+   const arr = Array.isArray(str) ? str : str.toString().toLowerCase().trim().split('');
    let reversed = '';
 
    for (let i = arr.length - 1; i >= 0; i--) {
@@ -36,5 +36,6 @@ console.log(isPalindrome(12314)); // false
 console.log(isPalindrome(345543)); // true
 console.log(isPalindrome()); // false
 console.log(isPalindrome(null)); // false
-console.log(isPalindrome([1, 2, 1, 2])); // true
-console.log(isPalindrome('Aa')); // false
+console.log(isPalindrome([1, 2, 1, 2])); // false
+console.log(isPalindrome(' aa')); // true
+console.log(isPalindrome(' Aa ')); // true
