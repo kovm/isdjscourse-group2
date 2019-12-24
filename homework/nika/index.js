@@ -12,6 +12,9 @@ function oneToHundred () {
    }
 }
 function isPalindrome (str) {
+   if ((typeof str === 'object') || (typeof str === null) || (typeof str === 'undefined')) {
+      return false;
+   }
    if (typeof str === 'number') {
       str = String(str);
    }
@@ -19,9 +22,9 @@ function isPalindrome (str) {
    let result = '';
    for (let i = 0; i < strLen; i++) {
       if (str[i] === str[strLen - 1 - i]) {
-         result = 'true';
+         result = true;
       } else {
-         result = 'false';
+         result = false;
          return result;
       }
    }
