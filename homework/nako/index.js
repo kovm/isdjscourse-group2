@@ -15,21 +15,16 @@ function fizzBuzz () {
 fizzBuzz();
 
 function isPalindrome (str) {
-   if (typeof str !== 'object') {
-      str += '';
-   } else {
-      return 'Only string or number can be a palindrome';
+   if ((typeof str !== 'string') && (typeof str !== 'number')) {
+      return false;
    }
-   let palindrome;
+   str += '';
    for (let i = 0; i < str.length; i++) {
-      if (str[i].toLowerCase() === str[str.length - (i + 1)].toLowerCase()) {
-         palindrome = true;
-      } else {
-         palindrome = false;
-         return palindrome;
+      if (str[i].toLowerCase() !== str[str.length - (i + 1)].toLowerCase()) {
+         return false;
       }
    }
-   return palindrome;
+   return true;
 };
 
 isPalindrome('tenet');
