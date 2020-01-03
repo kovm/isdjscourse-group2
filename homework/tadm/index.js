@@ -38,7 +38,7 @@ const isPalindrom = function (any) {
 
 isPalindrom('Потоп');
 isPalindrom(345543);
-isPalindrom('Word palindrom');
+isPalindrom('Word');
 isPalindrom();
 isPalindrom(null);
 isPalindrom([1, 2, 1]);
