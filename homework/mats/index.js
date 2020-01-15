@@ -13,18 +13,18 @@ function fizzBuzz () {
 }
 
 function isPalindrom (value) {
-   const stringValue = value.toString().toLowerCase();
-   let valueReversed = '';
+   if (typeof value === 'number' || typeof value === 'string') {
+      const stringValue = value.toString().toLowerCase();
+      let valueReversed = '';
 
-   for (let i = stringValue.length - 1; i >= 0; i--) {
-      valueReversed += stringValue[i];
-   }
-   console.log('StringValue: ' + stringValue + '\nReversed: ' + valueReversed);
+      for (let i = stringValue.length - 1; i >= 0; i--) {
+         valueReversed += stringValue[i];
+      }
+      console.log(`StringValue: ${stringValue}\nReversed: ${valueReversed}`);
 
-   if (stringValue === valueReversed) {
-      return true;
+      return stringValue === valueReversed;
    } else {
-      return false;
+      return 'Only numbers and strings available!';
    }
 }
 
@@ -33,3 +33,4 @@ fizzBuzz();
 console.log(isPalindrom('kek'));
 console.log(isPalindrom(123321));
 console.log(isPalindrom('Kek'));
+console.log(isPalindrom(true));
