@@ -1,38 +1,109 @@
-function fizzBuzz (size) {
-   for (let i = 1; i <= size; i++) {
-      const output = (i % 3 === 0 ? 'Fizz' : '') + (i % 5 === 0 ? 'Buzz' : '');
-      console.log(output === '' ? i : output);
+class Ship {
+   constructor () {
+      this.deckNumber = 1;
+   }
+
+   shootThis () {
+      this.deckNumber--;
+      return this.deckNumber <= 0 ? 1 : 0;
+   }
+
+   incrementDeck () {
+      this.deckNumber++;
+      return this;
    }
 }
 
-fizzBuzz(100);
+class SeaCell {
+   constructor (ship) {
+      this.ship = ship;
+      this.isInGame = true;
+   }
 
-function isPalindrome (input) {
-   if (typeof input !== 'string' && typeof input !== 'number') {
-      return false;
-   }      
-   const inputArray = input.toString().toLowerCase().split('');
-   for (let i = 0; i <= inputArray.length / 2 - 1; i++) {
-      if (inputArray[i] !== inputArray[inputArray.length - 1 - i]) {
-         return false;
+   shootThis () {
+      if (this.isInGame) {
+         this.isInGame = false;
+         return this.hasShip() ? this.ship.shootThis() : -1;
+      } else {
+         throw new Error('This cell has been already shooted.');
       }
    }
-   return true;
+
+   hasShip () {
+      return this.ship !== undefined && this.ship !== null;
+   }
 }
 
-console.log(`sPalindrome for null === ${isPalindrome(null)}`);
-console.log(`isPalindrome for Потоп === ${isPalindrome('Потоп')}`);
-console.log(`isPalindrome for потоп === ${isPalindrome('потоп')}`);
-console.log(`isPalindrome for кот === ${isPalindrome('кот')}`);
-console.log(`isPalindrome for 12314 === ${isPalindrome(12314)}`);
-console.log(`isPalindrome for 345543 === ${isPalindrome(345543)}`);
+function createSeaBattle () {
+   const gamingSea = [
+      [1, 1, 0, 1, 0, 0, 1, 1, 1, 1],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
+      [1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+   ];
 
-console.log(`isPalindrome for 3 === ${isPalindrome(3)}`);
-console.log(`isPalindrome for 33 === ${isPalindrome(33)}`);
-console.log(`isPalindrome for 353 === ${isPalindrome(353)}`);
-console.log(`isPalindrome for 34 === ${isPalindrome(34)}`);
+   const shipList = [];
 
-console.log(`isPalindrome for {toString: () => 'kek'} === ${isPalindrome({toString: () => 'kek'})}`);
-console.log(`isPalindrome for () === ${isPalindrome()}`)
-console.log(`isPalindrome for [1,2,3,2,1] === ${isPalindrome([1,2,3,2,1])}`);
+   for (let y = 0; y < gamingSea.length; y++) {
+      for (let x = 0; x < gamingSea[y].length; x++) {
+         const element = gamingSea[y][x];
+         if (element === 0) {
+            gamingSea[y][x] = new SeaCell();
+         } else {
+            if (x !== 0 && gamingSea[y][x - 1].hasShip()) {
+               gamingSea[y][x] = new SeaCell(gamingSea[y][x - 1].ship.incrementDeck());
+            } else if (y !== 0 && gamingSea[y - 1][x].hasShip()) {
+               gamingSea[y][x] = new SeaCell(gamingSea[y - 1][x].ship.incrementDeck());
+            } else {
+               shipList.push(new Ship());
+               gamingSea[y][x] = new SeaCell(shipList[shipList.length - 1]);
+            }
+         }
+      }
+   }
 
+   console.log(`Game field dimensions are x:1..${gamingSea[0].length}, y:1..${gamingSea.length}`);
+   console.log('Total ship number is ' + shipList.length);
+
+   const shipIndex = new Map();
+
+   for (const shipInList of shipList) {
+      shipIndex.set(shipInList.deckNumber, shipIndex.has(shipInList.deckNumber) ? shipIndex.get(shipInList.deckNumber) + 1 : 1);
+   }
+
+   let totalDeckNumber = 0;
+
+   for (const [key, value] of new Map([...shipIndex].sort())) {
+      console.log(`Number of ${key} deck ships is ${value}`);
+      totalDeckNumber += key * value;
+   }
+
+   return function (x, y) {
+      if (totalDeckNumber < 1) {
+         throw new Error('There is no ship to shoot.');
+      }
+      if (!(Number.isInteger(x) && Number.isInteger(y))) {
+         throw new Error('Wrong type for coordinates. Use whole numbers only');
+      }
+      if (y < 1 || y > gamingSea.length) {
+         throw new Error(`The value ${y} of y coordinate is out of range of gaming field.`);
+      }
+      if (x < 1 || x > gamingSea[0].length) {
+         throw new Error(`The value ${x} of x coordinate is out of range of gaming field.`);
+      }
+
+      const shootResult = gamingSea[y - 1][x - 1].shootThis();
+      if (shootResult === 0 || shootResult === 1) {
+         totalDeckNumber--;
+      }
+      return shootResult;
+   };
+}
+
+module.exports = createSeaBattle;
