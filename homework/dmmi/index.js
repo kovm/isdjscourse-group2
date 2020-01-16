@@ -84,25 +84,27 @@ function createSeaBattle () {
       totalDeckNumber += key * value;
    }
 
-   return function (x, y) {
-      if (totalDeckNumber < 1) {
-         throw new Error('There is no ship to shoot.');
-      }
-      if (!(Number.isInteger(x) && Number.isInteger(y))) {
-         throw new Error('Wrong type for coordinates. Use whole numbers only');
-      }
-      if (y < 1 || y > gamingSea.length) {
-         throw new Error(`The value ${y} of y coordinate is out of range of gaming field.`);
-      }
-      if (x < 1 || x > gamingSea[0].length) {
-         throw new Error(`The value ${x} of x coordinate is out of range of gaming field.`);
-      }
+   return function (x) {
+      return function (y) {
+         if (totalDeckNumber < 1) {
+            throw new Error('There is no ship to shoot.');
+         }
+         if (!(Number.isInteger(x) && Number.isInteger(y))) {
+            throw new Error('Wrong type for coordinates. Use whole numbers only');
+         }
+         if (y < 1 || y > gamingSea.length) {
+            throw new Error(`The value ${y} of y coordinate is out of range of gaming field.`);
+         }
+         if (x < 1 || x > gamingSea[0].length) {
+            throw new Error(`The value ${x} of x coordinate is out of range of gaming field.`);
+         }
 
-      const shootResult = gamingSea[y - 1][x - 1].shootThis();
-      if (shootResult === 0 || shootResult === 1) {
-         totalDeckNumber--;
-      }
-      return shootResult;
+         const shootResult = gamingSea[y - 1][x - 1].shootThis();
+         if (shootResult === 0 || shootResult === 1) {
+            totalDeckNumber--;
+         }
+         return shootResult;
+      };
    };
 }
 
