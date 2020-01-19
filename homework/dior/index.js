@@ -1,21 +1,23 @@
-function putToCache(elem, cache){
-	if(cache.indexOf(elem) != -1){
-		return;
-	}
-	var i = Math.floor(Math.random()*(cache.length + 1));
-	cache.splice(i, 0, elem);
+for (let i = 1; i <= 100; i++) {
+   if (i % 3 === 0 && i % 5 === 0) {
+      console.log('fizzbuzz');
+   } else if (i % 3 === 0) {
+      console.log('fizz');
+   } else if (i % 5 === 0) {
+      console.log('buzz');
+   } else {
+      console.log(i);
+   }
+   console.log(isPalindrom(i));
 }
-function madness(){
-	var cache = [];
-	return function(a, b){
-		putToCache(a, cache);
-		putToCache(b, cache);
-		return cache.indexOf(b) - cache.indexOf(a);
-	}
+function isPalindrom (string) {
+   string = string + '';
+   const strLen = string.length;
+   for (let i = 0; i < strLen; i++) {
+      if (string[i] === string[strLen - 1 - i]) {
+      } else {
+         return false;
+      }
+   }
+   return true;
 }
-function shuffle(arr){
-	var compare = madness();
-	return arr.sort(compare);
-}
-var array = [1,2,3,4,5,6,7];
-console.log( shuffle( array ) );
