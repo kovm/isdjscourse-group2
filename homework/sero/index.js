@@ -1,33 +1,62 @@
-function fizzBuzz () {
-   for (let i = 1; i <= 100; i++) {
-      if (i % 3 === 0 && i % 5 === 0) {
-         console.log('FizzBuzz');
-      } else if (i % 3 === 0) {
-         console.log('Fizz');
-      } else if (i % 5 === 0) {
-         console.log('Buzz');
-      } else {
-         console.log(i);
+function createRiverBattle() {
+  let river = createRiverShips();
+  console.log(river);
+
+  return function(x, y) {
+    try {
+      if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > river.length - 1) || (y < 0 || y > 0)) {
+        throw new Error('invalid coordinates');
+      } else if (river[x] === 'shot') {
+        throw new Error('You\'ve already took a shot there');
+      } else if (!river.includes(1)) {
+        throw new Error('all ships were destroyed');
       }
-   }
+    } catch (e) {
+        return e.message;
+    }
+    
+    //shot two-deck ship
+    if (river[x] === 1 && (river[x - 1] === 1 || river[x + 1] === 1)) {
+      river[x] = 'shot';
+      return 0; // shot
+    } else if (river[x] === 1) {
+      river[x] = 'shot';
+      return 1; // kill
+    }
+
+    river[x] = 'shot';
+    return -1; // miss
+  }
 }
-fizzBuzz();
+function createRiverShips() {
+  const river = new Array(10).fill(0);
 
-function isPalindrome (str) {
-   str = String(str).toLowerCase();
+  let randomIndex = Math.round(Math.random() * (river.length - 1));
+  let shipsPlaced = 0;
+  
+  while (shipsPlaced !== 3) {
 
-   let reversed = '';
+    // place two-deck ship
+    if (shipsPlaced === 0 && randomIndex + 1 < river.length) {
+      river[randomIndex] = 1;
+      river[randomIndex + 1] = 1;
+      shipsPlaced++;
+    }
 
-   for (let i = str.length - 1; i >= 0; i--) {
-      reversed += str[i];
-   }
+    // check whether surrounded indeces are part of some ship
+    // place one-deck ships
+    if (!river.slice(Math.max(randomIndex - 1, 0), randomIndex + 2).includes(1) && shipsPlaced !== 0) {
+      river[randomIndex] = 1;
+      shipsPlaced++;  
+    }
 
-   return str === reversed;
+    randomIndex = Math.round(Math.random() * (river.length - 1))
+  }
+  
+  return river;
 }
 
-console.log(isPalindrome('civic')); // true
-console.log(isPalindrome('deified')); // true
-console.log(isPalindrome('Hannah')); // true
-console.log(isPalindrome('definetely not a palindrome')); // false
-console.log(isPalindrome(12314)); // false
-console.log(isPalindrome(345543)); // true
+module.exports = {
+  createRiverBattle: createRiverBattle,
+
+}
