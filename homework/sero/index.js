@@ -5,31 +5,33 @@ function createRiverBattle () {
    // initialise the array with ships in it
    const river = createRiverShips();
 
-   return function (x, y) {
-      try {
-         if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > river.length - 1) || (y < 0 || y > 0) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
-            throw new Error('invalid coordinates');
-         } else if (river[x] === 'shot') {
-            throw new Error('You\'ve already took a shot there');
-         } else if (!river.includes(1)) {
-            throw new Error('all ships were destroyed');
+   return function (x) {
+      return function (y) {
+         try {
+            if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > river.length - 1) || (y < 0 || y > 0) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
+               throw new Error('invalid coordinates');
+            } else if (river[x] === 'shot') {
+               throw new Error('You\'ve already took a shot there');
+            } else if (!river.includes(1)) {
+               throw new Error('all ships were destroyed');
+            }
+         } catch (e) {
+            return e.message;
          }
-      } catch (e) {
-         return e.message;
-      }
 
-      // shot two-deck ship
-      if (river[x] === 1 && (river[x - 1] === 1 || river[x + 1] === 1)) {
-         river[x] = 'shot';
-         return 0; // shot
-      // shot on-deck ship
-      } else if (river[x] === 1) {
-         river[x] = 'shot';
-         return 1; // kill
-      }
+         // shot two-deck ship
+         if (river[x] === 1 && (river[x - 1] === 1 || river[x + 1] === 1)) {
+            river[x] = 'shot';
+            return 0; // shot
+            // shot on-deck ship
+         } else if (river[x] === 1) {
+            river[x] = 'shot';
+            return 1; // kill
+         }
 
-      river[x] = 'shot';
-      return -1; // miss
+         river[x] = 'shot';
+         return -1; // miss
+      };
    };
 }
 function createRiverShips () {
@@ -68,33 +70,35 @@ function createSeaBattle () {
    // set ships coordinates in passing array;
    const sea = createSeaMap(shipsCoordinates);
 
-   return function (x, y) {
-      try {
-         if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > sea.length - 1) || (y < 0 || y > sea.length - 1) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
-            throw new Error('invalid coordinates');
-         } else if (sea[y][x] === 'shot') {
-            throw new Error('You\'ve already took a shot there');
-         } else if (sea.every(row => !row.includes(1))) {
-            throw new Error('all ships were destroyed');
+   return function (x) {
+      return function (y) {
+         try {
+            if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > sea.length - 1) || (y < 0 || y > sea.length - 1) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
+               throw new Error('invalid coordinates');
+            } else if (sea[y][x] === 'shot') {
+               throw new Error('You\'ve already took a shot there');
+            } else if (sea.every(row => !row.includes(1))) {
+               throw new Error('all ships were destroyed');
+            }
+         } catch (e) {
+            return e.message;
          }
-      } catch (e) {
-         return e.message;
-      }
 
-      if (sea[y][x] === 0) {
+         if (sea[y][x] === 0) {
+            sea[y][x] = 'shot';
+            return -1;
+         }
+         // find the ship which was shot
+         const ship = shipsCoordinates.find(s => s.includes(`${y}-${x}`));
+
+         // get the index of coordinates in ship
+         const coordinatesIndex = ship.indexOf(`${y}-${x}`);
+         ship[coordinatesIndex] = 'shot';
          sea[y][x] = 'shot';
-         return -1;
-      }
-      // find the ship which was shot
-      const ship = shipsCoordinates.find(s => s.includes(`${y}-${x}`));
 
-      // get the index of coordinates in ship
-      const coordinatesIndex = ship.indexOf(`${y}-${x}`);
-      ship[coordinatesIndex] = 'shot';
-      sea[y][x] = 'shot';
-
-      // check if all coordinates in a ship are shot and return 1(kill) or 0 (just shot)
-      return ship.every(coordinate => coordinate.includes('shot')) ? 1 : 0;
+         // check if all coordinates in a ship are shot and return 1(kill) or 0 (just shot)
+         return ship.every(coordinate => coordinate.includes('shot')) ? 1 : 0;
+      };
    };
 }
 
