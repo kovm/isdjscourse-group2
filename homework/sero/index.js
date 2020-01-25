@@ -15,7 +15,7 @@ fizzBuzz();
 
 function isPalindrome (str) {
    if (!str) {
-      return false;
+      throw new Error('invalid argument');
    }
 
    const arr = Array.isArray(str) ? str : str.toString().toLowerCase().trim().split('');
