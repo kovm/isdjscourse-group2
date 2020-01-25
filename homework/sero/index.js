@@ -7,13 +7,13 @@ function createRiverBattle () {
 
    return function (x) {
       return function (y) {
-          if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > river.length - 1) || (y < 0 || y > 0) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
-              throw new Error('invalid coordinates');
-          } else if (river[x] === 'shot') {
-              throw new Error('You\'ve already took a shot there');
-          } else if (!river.includes(1)) {
-              throw new Error('all ships were destroyed');
-          }
+         if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > river.length - 1) || (y < 0 || y > 0) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
+            throw new Error('invalid coordinates');
+         } else if (river[x] === 'shot') {
+            throw new Error('You\'ve already took a shot there');
+         } else if (!river.includes(1)) {
+            throw new Error('all ships were destroyed');
+         }
 
          // shot two-deck ship
          if (river[x] === 1 && (river[x - 1] === 1 || river[x + 1] === 1)) {
@@ -68,14 +68,14 @@ function createSeaBattle () {
 
    return function (x) {
       return function (y) {
-          if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > sea.length - 1) || (y < 0 || y > sea.length - 1) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
-              throw new Error('invalid coordinates');
-          } else if (sea[y][x] === 'shot') {
-              throw new Error('You\'ve already took a shot there');
-          } else if (sea.every(row => !row.includes(1))) {
-              throw new Error('all ships were destroyed');
-          }
-         
+         if ((typeof x !== 'number' || typeof y !== 'number') || (x < 0 || x > sea.length - 1) || (y < 0 || y > sea.length - 1) || Math.trunc(y) !== y || Math.trunc(x) !== x) {
+            throw new Error('invalid coordinates');
+         } else if (sea[y][x] === 'shot') {
+            throw new Error('You\'ve already took a shot there');
+         } else if (sea.every(row => !row.includes(1))) {
+            throw new Error('all ships were destroyed');
+         }
+
          if (sea[y][x] === 0) {
             sea[y][x] = 'shot';
             return -1;
