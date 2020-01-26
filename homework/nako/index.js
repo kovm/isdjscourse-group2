@@ -1,43 +1,30 @@
+function fizzBuzz () {
+   for (let i = 1; i <= 100; i++) {
+      if ((i % 3 === 0 && i % 5 === 0)) {
+         console.log('FizzBuzz');
+      } else if (i % 5 === 0) {
+         console.log('Buzz');
+      } else if (i % 3 === 0) {
+         console.log('Fizz');
+      } else {
+         console.log(i);
+      }
+   }
+};
 
-function arrayToList (arr) {
-    let next = prepend (arr[arr.length-1], null);
-    for (let i=arr.length-2; i>-1; i--){
-        next = prepend(arr[i], next )
-    }
-    return next;
-}
+fizzBuzz();
 
-function prepend (value, next) {
-    return {value: value, rest: next}
-}
+function isPalindrome (str) {
+   if ((typeof str !== 'string') && (typeof str !== 'number')) {
+      return false;
+   }
+   str += '';
+   for (let i = 0; i < str.length; i++) {
+      if (str[i].toLowerCase() !== str[str.length - (i + 1)].toLowerCase()) {
+         return false;
+      }
+   }
+   return true;
+};
 
-function listToArray (list){
-    let arr=[];
-    arr.push(list.value);
-    do{
-        list=list.rest;
-        arr.push(list.value);
-    }
-    while(list.rest!==null)
-        ;
-    return arr;
-}
-
-function nth (list, position){
-    let counter=0;
-    while(counter!==position && list.rest!==null){
-        list=list.rest;
-        counter++;
-    };
-    if (counter===position) return list.value;
-    else return undefined;
-}
-
-console.log(arrayToList([10,20]));
-// → {value: 10, rest: {value: 20, rest: null}}
-console.log(listToArray(arrayToList([10, 20, 30])));
-// → [10, 20, 30]
-console.log(prepend(10, prepend(20, null)));
-// → {value: 10, rest: {value: 20, rest: null}}
-console.log(nth(arrayToList([10, 20, 30]), 1));
-// → 20
+isPalindrome('tenet');
