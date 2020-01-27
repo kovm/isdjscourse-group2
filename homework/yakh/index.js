@@ -43,6 +43,9 @@ module.exports.createSeaBattle = function () {
             throw new Error('Не корректный ввод координаты Y');
          }
          const y = x[secondData];
+         if (count === 10) {
+            throw new Error('Корабли закончились');
+         }
          if (y === 5) {
             throw new Error('Вы уже стреляли сюда');
          }
@@ -50,20 +53,17 @@ module.exports.createSeaBattle = function () {
             if (y.hitPoints === 1) {
                x.splice(secondData, 1, 5);
                y.hitPoints -= 1;
-               console.log('Вы потопили ' + y.name + ' корабль');
                count++;
-               if (count === 10) {
-                  throw new Error('Корабли закончились');
-               }
+               return 1;
             } else {
                x.splice(secondData, 1, 5);
                y.hitPoints -= 1;
-               console.log('Ранил');
+               return 0;
             }
          }
          if (y === 0) {
             x.splice(secondData, 1, 5);
-            throw new Error('Мимо');
+            return -1;
          }
       };
    };
