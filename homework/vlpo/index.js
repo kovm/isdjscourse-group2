@@ -3,12 +3,12 @@ module.exports = {
 };
 
 function createSeaBattle () {
-   let map = [];
+   const map = [];
    for (let i = 0; i < 10; i++) {
       map.push(Array(10).fill(0));
    }
 
-   let shipsArray = [];
+   const shipsArray = [];
    for (let i = 0; i < 4; i++) {
       shipsArray.push(Array(0));
    }
@@ -45,7 +45,7 @@ function createSeaBattle () {
 
             // check all ships coords
             for (let i = 0; i < shipsArray.length; i++) {
-               let currentShip = shipsArray[i];
+               const currentShip = shipsArray[i];
                for (let j = 0; j < currentShip.length; j++) {
                   for (let k = 0; k < currentShip[j].decks; k++) {
                      if (currentShip[j].x[k] === x && currentShip[j].y[k] === y) {
@@ -150,7 +150,7 @@ function getRandomNumber (someNum) {
 function createShips (ship, map) {
    // pretend that:
    // 0 - horizontally - x coord, 1 - vertical - y coord
-   let direction = getRandomNumber(1);
+   const direction = getRandomNumber(1);
    let x, y;
 
    if (direction === 0) {
