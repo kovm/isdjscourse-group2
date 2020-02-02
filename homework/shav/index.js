@@ -7,15 +7,15 @@ function createSeaBattle () {
    return function (x = -1) {
       return function (y = -1) {
          if (x < 0 || x > 9 || x !== parseInt(x)) {
-            return console.log('Введен некорректный х.');
+            throw new Error();
          }
          if (y < 0 || y > 9 || y !== parseInt(y)) {
-            return console.log('Введен некорректный y.');
+            throw new Error();
          }
 
          for (let i = 0; i < usedX.length; i++) {
             if (usedX[i] === x && usedY[i] === y) {
-               return console.log('Выстрел в этот квадрат уже был.');
+               throw new Error();
             }
          }
 
@@ -31,14 +31,14 @@ function createSeaBattle () {
                      if (ships[i][0].length === 0) {
                         killsCounter++;
                         if (killsCounter === 10) {
-                           return console.log('Вы уничтожили все корабли!');
+                           throw new Error();
                         }
-                        return console.log(1);
+                        return 1;
                      } else {
-                        return console.log(0);
+                        return 0;
                      }
                   } else {
-                     return console.log(-1);
+                     return -1;
                   }
                }
             }
@@ -48,26 +48,3 @@ function createSeaBattle () {
 }
 
 const seaBattle = createSeaBattle();
-seaBattle(-1)(0);
-seaBattle(0)('asds');
-seaBattle(0)(0);
-seaBattle(0)(0);
-seaBattle(0)(1);
-seaBattle(0)(2);
-seaBattle(0)(3);
-seaBattle(2)(0);
-seaBattle(3)(0);
-seaBattle(4)(0);
-seaBattle(6)(0);
-seaBattle(7)(0);
-seaBattle(8)(0);
-seaBattle(2)(2);
-seaBattle(2)(3);
-seaBattle(4)(4);
-seaBattle(4)(5);
-seaBattle(6)(6);
-seaBattle(6)(7);
-seaBattle(4)(2);
-seaBattle(6)(2);
-seaBattle(2)(5);
-seaBattle(2)(7);
