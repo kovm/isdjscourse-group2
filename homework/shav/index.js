@@ -48,3 +48,4 @@ function createSeaBattle () {
 }
 
 const seaBattle = createSeaBattle();
+module.exports = { seaBattle };
