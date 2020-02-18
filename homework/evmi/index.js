@@ -1,5 +1,5 @@
 
-function createSeaBattle (f) {
+exports.createSeaBattle = function () {
    const arr = [0, 2, 2, 0, 1, 0, 0, 0, 1, 0];
    let count = 0;
 
@@ -66,8 +66,6 @@ function createSeaBattle (f) {
          } else {
             throw new Error('Уже стрелял');
          }
-
-         return f(x, y);
       };
    };
 
@@ -88,6 +86,4 @@ function createSeaBattle (f) {
          throw new Error('Введите число');
       }
    }
-}
-const seaBattle = createSeaBattle();
-seaBattle(1)(0);
+};
